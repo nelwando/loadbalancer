@@ -9,7 +9,7 @@ public class RoundRobinAlgorithm implements Algorithm {
 	private int rrIndex = 0;
 
 	@Override
-	public EndPoint getEndpoint(final List<EndPoint> endPoints, final String host, final int port) {
+	public synchronized EndPoint getEndpoint(final List<EndPoint> endPoints, final String host, final int port) {
 		if (endPoints.isEmpty()) {
 			return null;
 		}
