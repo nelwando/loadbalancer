@@ -48,13 +48,13 @@ cd testinfrastructure/bin
 java com.neil.harvey.client.TestClient
 ```
 
-The client will connect to `127.0.0.1:9090`, send two messages (`hello` and `bye`), and print the responses from the server.
+The client will connect to `127.0.0.1:9000`, send two messages (`hello` and `bye`), and print the responses from the server.
 
 ## Example Output
 
 **Server:**
 ```
-Backend A listening on 9090
+Backend A listening on 9000
 ```
 
 **Client:**
