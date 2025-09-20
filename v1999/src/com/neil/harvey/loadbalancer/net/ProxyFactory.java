@@ -6,6 +6,9 @@ import com.neil.harvey.loadbalancer.algorithm.Algorithm;
 import com.neil.harvey.loadbalancer.endpoint.EndPointRegistry;
 import com.neil.harvey.loadbalancer.metrics.MetricsService;
 
+/**
+ * Factory for creating Proxy instances to handle client connections.
+ */
 public class ProxyFactory {
 	private final EndPointRegistry endPointRegistry;
 	private final MetricsService metricsService;
@@ -34,6 +37,12 @@ public class ProxyFactory {
 		algorithm = newAlgorithm;
 	}
 
+	/**
+	 * Creates a new Proxy instance to handle the given client socket connection.
+	 * 
+	 * @param client The client socket connection
+	 * @return A new Proxy instance
+	 */
 	public Proxy createProxy(final Socket client) {
 		return new Proxy(client, endPointRegistry, metricsService, algorithm);
 	}

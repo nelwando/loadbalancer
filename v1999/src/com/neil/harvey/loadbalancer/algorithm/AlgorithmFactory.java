@@ -13,6 +13,12 @@ public class AlgorithmFactory {
 		// Prevent instantiation
 	}
 	
+	/**
+	 * Registers a new algorithm with the factory.
+	 * 
+	 * @param name      The name of the algorithm (case-insensitive)
+	 * @param algorithm The Algorithm instance to register
+	 */
 	public static void registerAlgorithm(String name, Algorithm algorithm) {
 		if (name == null || algorithm == null) {
 			throw new IllegalArgumentException("Name and algorithm must not be null");
@@ -21,6 +27,13 @@ public class AlgorithmFactory {
 		algorithms.put(name.toLowerCase(), algorithm);
 	}
 	
+	/**
+	 * Retrieves an Algorithm instance based on the specified algorithm name.
+	 * 
+	 * @param algorithmName The name of the desired algorithm (case-insensitive)
+	 * @return The corresponding Algorithm instance
+	 * @throws IllegalArgumentException if the algorithm name is unknown
+	 */
 	public static Algorithm getAlgorithm(String algorithmName) {
 		final Algorithm algorithm = algorithms.get(algorithmName == null ? "" : algorithmName.toLowerCase());
 		
@@ -28,7 +41,6 @@ public class AlgorithmFactory {
 			return algorithm;
 		}
 		
-		// Add other algorithms here as needed
 		throw new IllegalArgumentException("Unknown algorithm: " + algorithmName);
 	}
 }

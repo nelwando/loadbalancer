@@ -8,9 +8,9 @@ import com.neil.harvey.loadbalancer.algorithm.Algorithm;
 import com.neil.harvey.loadbalancer.endpoint.EndPoint;
 
 /**
- * Implements IP Hash load balancing algorithm.
- * Maps client IP addresses to specific backend endpoints.
- * Falls back to Round Robin if no mapping exists or if the mapped endpoint is unhealthy.
+ * Implements IP Hash load balancing algorithm. Maps client IP addresses to
+ * specific backend endpoints. Falls back to Round Robin if no mapping exists or
+ * if the mapped endpoint is unhealthy.
  */
 public class IPHashAlgorithm extends RoundRobinAlgorithm implements Algorithm {
 	private Map<String, EndPoint> ipToEndPointMap = new ConcurrentHashMap<>();
@@ -21,7 +21,7 @@ public class IPHashAlgorithm extends RoundRobinAlgorithm implements Algorithm {
 			return null;
 		}
 
-			if (ipToEndPointMap.containsKey(host)) {
+		if (ipToEndPointMap.containsKey(host)) {
 			EndPoint cachedEndPoint = ipToEndPointMap.get(host);
 
 			if (cachedEndPoint.isHealthy()) {

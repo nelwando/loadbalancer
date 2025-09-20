@@ -84,7 +84,7 @@ public class InMemoryEndPointRegistryImpl implements EndPointRegistry {
 						}
 					}
 				}
-			}, "EndPointService - HealthChecker").start();
+			}, "EndPointRegistry - HealthChecker").start();
 		}
 
 		return running;

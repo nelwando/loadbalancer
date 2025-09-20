@@ -5,6 +5,10 @@ import java.util.List;
 import com.neil.harvey.loadbalancer.algorithm.Algorithm;
 import com.neil.harvey.loadbalancer.endpoint.EndPoint;
 
+/**
+ * Implements Round Robin load balancing algorithm. Cycles through the list of
+ * backend endpoints, returning the next healthy endpoint in the list.
+ */
 public class RoundRobinAlgorithm implements Algorithm {
 	private int rrIndex = 0;
 
