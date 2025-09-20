@@ -63,6 +63,28 @@ Due to time constraints the following enhancements were not implemented, but sho
 - Alerting: a production ready solution should support appropriate alerting (eg: email, SMS etc) so that any issues are actively reported to appropriate individuals/systems etc so that remediative action can be taken
 - Logging:
     - The code has little logging to avoid polluting the console log.  In a production ready implementation appropriate logging should be added so that issues can be diagnosed more easily.
+    
+### Modern Java Version Enhancements
+If implementing the solution using an up to date version of Java (eg: at the time of writing version 25) there are alternative approaches that could be used that would enhance the solution including:
+
+- Concurrency
+    - Use java.util.concurrent collections for thread safety and better performance instead of Vector
+    - Use an ExecutorService (eg: ThreadPoolExecutor) for improved scalability of Threads
+    - Use ReentrantReadWriteLock for improved performance for Thread sensitive code
+    - Use of virtual threads for reduced overhead
+    - Use of immutable objects (eg: record, immutable collections) and Optional to avoid manual synchronisation and avoidance of NPE.
+- Logging
+    - Use of a configurable logging framework that supports various log levels
+- Resource Management
+    - Use of try-with-resources for automatic resource management
+- Networking
+    - Use of non-blocking I/O (eg: NIO)
+- Frameworks
+    - Use of a modern Dependency Injection framework such as Spring/SpringBoot to support configuration and dependency injection rather than hard coded dependencies.
+- API Design and Modern Language Features
+    - Use sealed/unsealed interfaces/classes to control extensibility
+    - Use functional interfaces and lambdas
+    - Use streams and collectors for collection processing (esp. Parallel streams)
 
 ## Architecture Overview
 The diagram below illustrates the main classes and their relationships in the implemented solution.
