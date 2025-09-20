@@ -53,6 +53,7 @@ Due to time constraints the following enhancements were not implemented, but sho
     - To improve performance Thread pooling should be used to avoid the overhead of instantiating a new Thread for each request
     - Batching of messages to the AlertService and MetricsService
     - Use of non-blocking IO
+    - Synchronized blocks may become bottlenecks.  In later versions of Java additional concurrency features would help resolve this eg: ReentrantReadWriteLock.
 - Fault Tolerance:
     - Load balancers can represent a single point of failure so supporting clusters of load balancers is crucial
     - Should the LoadBalancer fail it should automatically attempt to restart a configurable number of times
