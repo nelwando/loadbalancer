@@ -60,7 +60,9 @@ Due to time constraints the following enhancements were not implemented, but sho
     - Implementation of a Circuit Breaker
     - Implementation of rate limiting (ie: back-pressure/Bulkhead) to prevent overloading of backend services
     - Implementation of backoff and retry for failed connections
-- Alerting: a production ready solution should support appropriate alerting (eg: email, SMS etc) so that any issues are actively reported to 
+- Alerting: a production ready solution should support appropriate alerting (eg: email, SMS etc) so that any issues are actively reported to appropriate individuals/systems etc so that remediative action can be taken
+- Logging:
+    - The code has little logging to avoid polluting the console log.  In a production ready implementation appropriate logging should be added so that issues can be diagnosed more easily.
 
 ## Architecture Overview
 The diagram below illustrates the main classes and their relationships in the implemented solution.
