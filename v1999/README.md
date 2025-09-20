@@ -30,6 +30,10 @@ The task is to implement a basic, software-based load-balancer, operating at lay
      - Observable - the solution should support monitoring
      - Maintainability - the solution should be designed such that bugs can be easily resolved
      - Extensible - the solution should be designed such that additional functionality can be easily added
+     
+## Definitions
+### Layer 4 Software-Based Load Balancer
+A layer 4 software load balancer directs traffic at the Transport Layer of the OSI model, distributing requests based on network information like source and destination IP addresses and ports for TCP and UDP protocols
  
 ## Assumptions
 The following assumptions have been made during the implementation:
@@ -48,6 +52,7 @@ Due to time constraints the following enhancements were not implemented, but sho
 - Performance:  
     - To improve performance Thread pooling should be used to avoid the overhead of instantiating a new Thread for each request
     - Batching of messages to the AlertService and MetricsService
+    - Use of non-blocking IO
 - Fault Tolerance:
     - Load balancers can represent a single point of failure so supporting clusters of load balancers is crucial
     - Should the LoadBalancer fail it should automatically attempt to restart a configurable number of times
