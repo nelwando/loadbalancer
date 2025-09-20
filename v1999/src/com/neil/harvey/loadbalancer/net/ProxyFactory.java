@@ -4,28 +4,28 @@ import java.net.Socket;
 
 import com.neil.harvey.loadbalancer.algorithm.Algorithm;
 import com.neil.harvey.loadbalancer.endpoint.EndPointRegistry;
-import com.neil.harvey.loadbalancer.metrics.MetricsCollector;
+import com.neil.harvey.loadbalancer.metrics.MetricsService;
 
 public class ProxyFactory {
-	private final EndPointRegistry endPointService;
-	private final MetricsCollector metricsCollector;
+	private final EndPointRegistry endPointRegistry;
+	private final MetricsService metricsService;
 	private final Algorithm algorithm;
 
 	public ProxyFactory(//
 			final EndPointRegistry newEndPointService, //
-			final MetricsCollector newMetricsCollector, //
+			final MetricsService newMetricsService, //
 			final Algorithm newAlgorithm) {
 		if (newEndPointService == null) {
 			throw new IllegalArgumentException("endPointService cannot be null");
 		}
 
-		endPointService = newEndPointService;
+		endPointRegistry = newEndPointService;
 
-		if (newMetricsCollector == null) {
-			throw new IllegalArgumentException("metricsCollector cannot be null");
+		if (newMetricsService == null) {
+			throw new IllegalArgumentException("metricsService cannot be null");
 		}
 
-		metricsCollector = newMetricsCollector;
+		metricsService = newMetricsService;
 
 		if (newAlgorithm == null) {
 			throw new IllegalArgumentException("algorithm cannot be null");
@@ -35,6 +35,6 @@ public class ProxyFactory {
 	}
 
 	public Proxy createProxy(final Socket client) {
-		return new Proxy(client, endPointService, metricsCollector, algorithm);
+		return new Proxy(client, endPointRegistry, metricsService, algorithm);
 	}
 }

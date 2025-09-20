@@ -7,7 +7,7 @@ import com.neil.harvey.loadbalancer.algorithm.Algorithm;
 import com.neil.harvey.loadbalancer.endpoint.EndPoint;
 import com.neil.harvey.loadbalancer.endpoint.EndPointRegistry;
 import com.neil.harvey.loadbalancer.io.Pipe;
-import com.neil.harvey.loadbalancer.metrics.MetricsCollector;
+import com.neil.harvey.loadbalancer.metrics.MetricsService;
 
 /**
  * Handles a client connection by selecting a backend endpoint and piping data
@@ -16,7 +16,7 @@ import com.neil.harvey.loadbalancer.metrics.MetricsCollector;
 public class Proxy implements Runnable {
 	private final Socket client;
 	private final EndPointRegistry endPointRegistry;
-	private final MetricsCollector metricsCollector;
+	private final MetricsService metricsService;
 	private final Algorithm algorithm;
 
 	/**
@@ -28,7 +28,7 @@ public class Proxy implements Runnable {
 	 */
 	public Proxy(final Socket newClient, //
 			final EndPointRegistry newEndPointRegistry, //
-			final MetricsCollector newMetricsCollector, //
+			final MetricsService newMetricsService, //
 			final Algorithm newAlgorithm) {
 		if (newClient == null) {
 			throw new IllegalArgumentException("client cannot be null");
@@ -42,11 +42,11 @@ public class Proxy implements Runnable {
 
 		endPointRegistry = newEndPointRegistry;
 
-		if (newMetricsCollector == null) {
-			throw new IllegalArgumentException("metricsCollector cannot be null");
+		if (newMetricsService == null) {
+			throw new IllegalArgumentException("metricsService cannot be null");
 		}
 
-		metricsCollector = newMetricsCollector;
+		metricsService = newMetricsService;
 
 		if (newAlgorithm == null) {
 			throw new IllegalArgumentException("algorithm cannot be null");
@@ -75,7 +75,7 @@ public class Proxy implements Runnable {
 				System.out.println("Error closing client socket: " + e.getMessage());
 			}
 
-			metricsCollector.recordRequest(endPoint, System.currentTimeMillis() - startTime, false);
+			metricsService.recordRequest(endPoint, System.currentTimeMillis() - startTime, false);
 			return;
 		}
 
@@ -95,10 +95,10 @@ public class Proxy implements Runnable {
 			endPoint.decrementActiveConnections();
 			client.close();
 
-			metricsCollector.recordResponseTime(endPoint, System.currentTimeMillis() - startTime);
-			metricsCollector.recordRequest(endPoint, System.currentTimeMillis() - startTime, true);
+			metricsService.recordResponseTime(endPoint, System.currentTimeMillis() - startTime);
+			metricsService.recordRequest(endPoint, System.currentTimeMillis() - startTime, true);
 		} catch (Exception e) {
-			metricsCollector.recordRequest(endPoint, System.currentTimeMillis() - startTime, false);
+			metricsService.recordRequest(endPoint, System.currentTimeMillis() - startTime, false);
 			endPointRegistry.notifyFailure(endPoint);
 		} finally {
 			try {

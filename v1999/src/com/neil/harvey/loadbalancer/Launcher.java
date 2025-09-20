@@ -13,11 +13,11 @@ import com.neil.harvey.loadbalancer.algorithm.impl.LeastUsedAlgorithm;
 import com.neil.harvey.loadbalancer.algorithm.impl.RoundRobinAlgorithm;
 import com.neil.harvey.loadbalancer.endpoint.EndPoint;
 import com.neil.harvey.loadbalancer.endpoint.EndPointRegistry;
-import com.neil.harvey.loadbalancer.endpoint.EndPointRegistryImpl;
-import com.neil.harvey.loadbalancer.healthcheck.HealthCheck;
-import com.neil.harvey.loadbalancer.healthcheck.ConnectHealthCheckImpl;
-import com.neil.harvey.loadbalancer.metrics.MetricsCollector;
-import com.neil.harvey.loadbalancer.metrics.SystemOutMetricsCollectorImpl;
+import com.neil.harvey.loadbalancer.endpoint.InMemoryEndPointRegistryImpl;
+import com.neil.harvey.loadbalancer.healthcheck.HealthCheckService;
+import com.neil.harvey.loadbalancer.healthcheck.ConnectHealthCheckServiceImpl;
+import com.neil.harvey.loadbalancer.metrics.MetricsService;
+import com.neil.harvey.loadbalancer.metrics.SystemOutMetricsServiceImpl;
 import com.neil.harvey.loadbalancer.net.ProxyFactory;
 
 /**
@@ -61,9 +61,9 @@ public class Launcher {
 
 		// Enhancement: Initialization should be driven via configuration
 		final AlertService alertService = new SystemOutAlertServiceImpl();
-		final HealthCheck healthChecker = new ConnectHealthCheckImpl();
-		final MetricsCollector metricsCollector = new SystemOutMetricsCollectorImpl();
-		final EndPointRegistry endPointRegistry = new EndPointRegistryImpl(alertService, healthChecker, timeToLive);
+		final HealthCheckService healthChecker = new ConnectHealthCheckServiceImpl();
+		final MetricsService metricsCollector = new SystemOutMetricsServiceImpl();
+		final EndPointRegistry endPointRegistry = new InMemoryEndPointRegistryImpl(alertService, healthChecker, timeToLive);
 		final List<EndPoint> endPointList = parseEndPoints(endpoints);
 		for (final EndPoint endPoint : endPointList) {
 			endPointRegistry.register(endPoint);

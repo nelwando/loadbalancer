@@ -10,7 +10,7 @@ import com.neil.harvey.loadbalancer.endpoint.EndPoint;
  * HealthChecker implementation that uses a simple TCP socket connection to
  * check if the endpoint is reachable.
  */
-public class ConnectHealthCheckImpl implements HealthCheck {
+public class ConnectHealthCheckServiceImpl implements HealthCheckService {
 	@Override
 	public boolean checkHealth(EndPoint endPoint) {
 		try {

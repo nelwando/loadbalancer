@@ -7,7 +7,7 @@ import com.neil.harvey.loadbalancer.endpoint.EndPoint;
  * 
  * In reality this would link to a proper metrics collection system. 
  */
-public class SystemOutMetricsCollectorImpl implements MetricsCollector {
+public class SystemOutMetricsServiceImpl implements MetricsService {
 
 	@Override
 	public void recordRequest(final EndPoint endPoint, final long responseTimeMillis, final boolean success) {

@@ -10,10 +10,10 @@ import com.neil.harvey.loadbalancer.algorithm.impl.TestIPHashAlgorithm;
 import com.neil.harvey.loadbalancer.algorithm.impl.TestLeastUsedAlgorithm;
 import com.neil.harvey.loadbalancer.algorithm.impl.TestRoundRobinAlgorithm;
 import com.neil.harvey.loadbalancer.endpoint.TestEndPoint;
-import com.neil.harvey.loadbalancer.endpoint.TestEndPointRegistryImpl;
-import com.neil.harvey.loadbalancer.healthcheck.TestConnectHealthCheckImpl;
+import com.neil.harvey.loadbalancer.endpoint.TestInMemoryEndPointRegistryImpl;
+import com.neil.harvey.loadbalancer.healthcheck.TestConnectHealthCheckServiceImpl;
 import com.neil.harvey.loadbalancer.io.TestPipe;
-import com.neil.harvey.loadbalancer.metrics.TestSystemOutMetricsCollectorImpl;
+import com.neil.harvey.loadbalancer.metrics.TestSystemOutMetricsServiceImpl;
 import com.neil.harvey.loadbalancer.proxy.TestProxyFactory;
 
 @RunWith(Suite.class)
@@ -24,10 +24,10 @@ import com.neil.harvey.loadbalancer.proxy.TestProxyFactory;
 		TestLeastUsedAlgorithm.class, //
 		TestRoundRobinAlgorithm.class, //
 		TestEndPoint.class, //
-		TestEndPointRegistryImpl.class, //
-		TestConnectHealthCheckImpl.class, //
+		TestInMemoryEndPointRegistryImpl.class, //
+		TestConnectHealthCheckServiceImpl.class, //
 		TestPipe.class, //
-		TestSystemOutMetricsCollectorImpl.class, //
+		TestSystemOutMetricsServiceImpl.class, //
 		TestProxyFactory.class, //
 		TestLauncher.class, //
 })

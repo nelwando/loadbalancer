@@ -9,7 +9,7 @@ import com.neil.harvey.loadbalancer.endpoint.EndPoint;
  * In production, this would typically integrate with a metrics collection
  * system and could be used to understand the health of the system.
  */
-public interface MetricsCollector {
+public interface MetricsService {
 	/**
 	 * Records a request made to a backend endpoint.
 	 * 

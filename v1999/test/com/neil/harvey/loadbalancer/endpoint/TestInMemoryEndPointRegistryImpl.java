@@ -8,16 +8,16 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.neil.harvey.loadbalancer.alert.AlertService;
-import com.neil.harvey.loadbalancer.healthcheck.HealthCheck;
+import com.neil.harvey.loadbalancer.healthcheck.HealthCheckService;
 
-public class TestEndPointRegistryImpl {
+public class TestInMemoryEndPointRegistryImpl {
     private static class MockAlertService implements AlertService {
         public List<EndPoint> failures = new ArrayList<>();
         public List<EndPoint> recoveries = new ArrayList<>();
         @Override public void alertFailure(EndPoint ep) { failures.add(ep); }
         @Override public void alertRecovery(EndPoint ep) { recoveries.add(ep); }
     }
-    private static class MockHealthCheck implements HealthCheck {
+    private static class MockHealthCheck implements HealthCheckService {
         private final Map<EndPoint, Boolean> health = new HashMap<>();
         public void setHealth(EndPoint ep, boolean isHealthy) { health.put(ep, isHealthy); }
         @Override public boolean checkHealth(EndPoint ep) {
@@ -27,29 +27,29 @@ public class TestEndPointRegistryImpl {
 
     private MockAlertService alertService;
     private MockHealthCheck healthCheck;
-    private EndPointRegistryImpl registry;
+    private InMemoryEndPointRegistryImpl registry;
     private EndPoint ep1, ep2;
 
     @Before
     public void setUp() {
         alertService = new MockAlertService();
         healthCheck = new MockHealthCheck();
-        registry = new EndPointRegistryImpl(alertService, healthCheck, 1000);
+        registry = new InMemoryEndPointRegistryImpl(alertService, healthCheck, 1000);
         ep1 = new EndPoint("host1", 8080);
         ep2 = new EndPoint("host2", 8081);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testConstructorNullAlertService() {
-        new EndPointRegistryImpl(null, healthCheck, 1000);
+        new InMemoryEndPointRegistryImpl(null, healthCheck, 1000);
     }
     @Test(expected = IllegalArgumentException.class)
     public void testConstructorNullHealthCheck() {
-        new EndPointRegistryImpl(alertService, null, 1000);
+        new InMemoryEndPointRegistryImpl(alertService, null, 1000);
     }
     @Test(expected = IllegalArgumentException.class)
     public void testConstructorInvalidTimeToLive() {
-        new EndPointRegistryImpl(alertService, healthCheck, 0);
+        new InMemoryEndPointRegistryImpl(alertService, healthCheck, 0);
     }
 
     @Test

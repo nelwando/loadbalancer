@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import com.neil.harvey.loadbalancer.algorithm.Algorithm;
 import com.neil.harvey.loadbalancer.endpoint.EndPointRegistry;
-import com.neil.harvey.loadbalancer.metrics.MetricsCollector;
+import com.neil.harvey.loadbalancer.metrics.MetricsService;
 import com.neil.harvey.loadbalancer.net.Proxy;
 import com.neil.harvey.loadbalancer.net.ProxyFactory;
 
@@ -29,7 +29,7 @@ public class TestProxyFactory {
 			return false;
 		}
     }
-    static class MockMetricsCollector implements MetricsCollector {
+    static class MockMetricsCollector implements MetricsService {
         @Override public void recordRequest(com.neil.harvey.loadbalancer.endpoint.EndPoint ep, long time, boolean success) {}
         @Override public void recordResponseTime(com.neil.harvey.loadbalancer.endpoint.EndPoint ep, long time) {}
     }

@@ -5,15 +5,15 @@ import java.util.List;
 import java.util.Vector;
 
 import com.neil.harvey.loadbalancer.alert.AlertService;
-import com.neil.harvey.loadbalancer.healthcheck.HealthCheck;
+import com.neil.harvey.loadbalancer.healthcheck.HealthCheckService;
 
 /**
  * Implementation of the EndPointRegistry interface for managing backend
  * endpoints, including health checks and failure notifications.
  */
-public class EndPointRegistryImpl implements EndPointRegistry {
+public class InMemoryEndPointRegistryImpl implements EndPointRegistry {
 	final AlertService alertService;
-	final HealthCheck healthCheck;
+	final HealthCheckService healthCheckService;
 	private final Vector<EndPoint> allEndPoints = new Vector<>(5);
 	final int timeToLive; // in milliseconds
 	private volatile boolean running = false;
@@ -27,8 +27,8 @@ public class EndPointRegistryImpl implements EndPointRegistry {
 	 * @param newTimeToLive   The interval in milliseconds between health checks
 	 *                        (must be greater than 0)
 	 */
-	public EndPointRegistryImpl(final AlertService newAlertService, //
-			final HealthCheck newHealthCheck, //
+	public InMemoryEndPointRegistryImpl(final AlertService newAlertService, //
+			final HealthCheckService newHealthCheckService, //
 			final int newTimeToLive) { //
 		if (newAlertService == null) {
 			throw new IllegalArgumentException("alertService cannot be null");
@@ -36,11 +36,11 @@ public class EndPointRegistryImpl implements EndPointRegistry {
 
 		alertService = newAlertService;
 
-		if (newHealthCheck == null) {
-			throw new IllegalArgumentException("healthCheck cannot be null");
+		if (newHealthCheckService == null) {
+			throw new IllegalArgumentException("healthCheckService cannot be null");
 		}
 
-		healthCheck = newHealthCheck;
+		healthCheckService = newHealthCheckService;
 
 		if (newTimeToLive <= 0) {
 			throw new IllegalArgumentException("timeToLive must be greater than zero");
@@ -63,7 +63,7 @@ public class EndPointRegistryImpl implements EndPointRegistry {
 								for (int i = 0; i < allEndPoints.size(); i++) {
 									final EndPoint endPoint = (EndPoint) allEndPoints.get(i);
 									final boolean wasHealthy = endPoint.isHealthy();
-									final boolean isHealthy = healthCheck.checkHealth(endPoint);
+									final boolean isHealthy = healthCheckService.checkHealth(endPoint);
 
 									endPoint.setHealthy(isHealthy);
 

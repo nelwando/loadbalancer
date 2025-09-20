@@ -10,6 +10,7 @@ import com.neil.harvey.loadbalancer.net.ProxyFactory;
 /**
  * A simple load balancer that listens for incoming connections and forwards
  * them to backend endpoints using a specified load balancing algorithm.
+ * 
  */
 public class LoadBalancer {
 	final ProxyFactory proxyFactory;
@@ -62,7 +63,10 @@ public class LoadBalancer {
 					// Wait for a client connection
 					final Socket client = serverSocket.accept();
 					final Proxy handler = proxyFactory.createProxy(client);
-					// Create a new thread to handle the connection
+					/*
+					 * This currently creates a new thread per connection. In a production system, a thread
+					 * pool would be more appropriate.
+					 */
 					new Thread(handler).start();
 				}
 			} catch (IOException e) {

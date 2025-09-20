@@ -11,17 +11,17 @@ import org.junit.Test;
 
 import com.neil.harvey.loadbalancer.endpoint.EndPoint;
 
-public class TestSystemOutMetricsCollectorImpl {
+public class TestSystemOutMetricsServiceImpl {
     private final PrintStream originalOut = System.out;
     private ByteArrayOutputStream outContent;
-    private SystemOutMetricsCollectorImpl collector;
+    private SystemOutMetricsServiceImpl collector;
     private EndPoint ep;
 
     @Before
     public void setUp() {
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        collector = new SystemOutMetricsCollectorImpl();
+        collector = new SystemOutMetricsServiceImpl();
         ep = new EndPoint("host", 1234);
     }
 
