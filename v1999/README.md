@@ -44,7 +44,7 @@ The following assumptions have been made during the implementation:
 - Frameworks such as Spring etc were unavailable in 1999 so cannot be used
 
 ## Enhancements
-Due to time constraints the following enhancements were not implemented, but should be noted as notable avenues for further work:
+Due to time constraints the following enhancements were not implemented, but should be noted as avenues for further work:
 
 - Scalability: 
     - To scale horizontally a distributed caching mechanism should be used to manage end points
