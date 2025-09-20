@@ -18,4 +18,4 @@ There are two projects that were created as part of the total solution which are
 This project provides the implementation of the load balancer.  See the [v1999 README](./v1999/README.md) for further information.
 
 ### testinfrastructure
- The projects provides the implementation of a test server and client that can be used to exercise the load balancer.  See the [testinfrastructure README](./testinfrastructure/README.md) for further information.
+This projects provides the implementation of a test server and client that can be used to exercise the load balancer.  See the [testinfrastructure README](./testinfrastructure/README.md) for further information.
