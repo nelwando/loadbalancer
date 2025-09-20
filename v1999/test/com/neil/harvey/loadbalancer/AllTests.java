@@ -14,6 +14,7 @@ import com.neil.harvey.loadbalancer.endpoint.TestInMemoryEndPointRegistryImpl;
 import com.neil.harvey.loadbalancer.healthcheck.TestConnectHealthCheckServiceImpl;
 import com.neil.harvey.loadbalancer.io.TestPipe;
 import com.neil.harvey.loadbalancer.metrics.TestSystemOutMetricsServiceImpl;
+import com.neil.harvey.loadbalancer.net.TestNetUtil;
 import com.neil.harvey.loadbalancer.proxy.TestProxyFactory;
 
 @RunWith(Suite.class)
@@ -28,6 +29,7 @@ import com.neil.harvey.loadbalancer.proxy.TestProxyFactory;
 		TestConnectHealthCheckServiceImpl.class, //
 		TestPipe.class, //
 		TestSystemOutMetricsServiceImpl.class, //
+		TestNetUtil.class, //
 		TestProxyFactory.class, //
 		TestLauncher.class, //
 })

@@ -59,6 +59,7 @@ Due to time constraints the following enhancements were not implemented, but sho
     - Should the LoadBalancer fail it should automatically attempt to restart a configurable number of times
     - Implementation of a Circuit Breaker
     - Implementation of rate limiting (ie: back-pressure/Bulkhead) to prevent overloading of backend services
+    - Implementation of backoff and retry for failed connections
 - Alerting: a production ready solution should support appropriate alerting (eg: email, SMS etc) so that any issues are actively reported to 
 
 ## Architecture Overview

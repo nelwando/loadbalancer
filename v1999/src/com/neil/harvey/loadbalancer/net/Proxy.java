@@ -1,6 +1,5 @@
 package com.neil.harvey.loadbalancer.net;
 
-import java.io.IOException;
 import java.net.Socket;
 
 import com.neil.harvey.loadbalancer.algorithm.Algorithm;
@@ -68,13 +67,7 @@ public class Proxy implements Runnable {
 			// Exit as soon as possible as there are no available endpoints to improve
 			// performance
 			System.out.println("No healthy endpoints available to handle request from " + client.getInetAddress());
-
-			try {
-				client.close();
-			} catch (IOException e) {
-				System.out.println("Error closing client socket: " + e.getMessage());
-			}
-
+			NetUtil.close(client);
 			metricsService.recordRequest(endPoint, System.currentTimeMillis() - startTime, false);
 			return;
 		}
@@ -91,21 +84,17 @@ public class Proxy implements Runnable {
 			t2.start();
 			t1.join();
 			t2.join();
-			backendSocket.close();
+			NetUtil.close(backendSocket);
 			endPoint.decrementActiveConnections();
-			client.close();
 
 			metricsService.recordResponseTime(endPoint, System.currentTimeMillis() - startTime);
 			metricsService.recordRequest(endPoint, System.currentTimeMillis() - startTime, true);
 		} catch (Exception e) {
 			metricsService.recordRequest(endPoint, System.currentTimeMillis() - startTime, false);
 			endPointRegistry.notifyFailure(endPoint);
-		} finally {
-			try {
-				client.close();
-			} catch (IOException ex) {
-				System.out.println("Error closing client socket: " + ex.getMessage());
-			}
+		} 
+		finally {
+			NetUtil.close(client);
 		}
 	}
 

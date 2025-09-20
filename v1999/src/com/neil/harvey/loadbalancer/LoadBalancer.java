@@ -6,6 +6,7 @@ import java.net.Socket;
 
 import com.neil.harvey.loadbalancer.net.Proxy;
 import com.neil.harvey.loadbalancer.net.ProxyFactory;
+import com.neil.harvey.loadbalancer.net.NetUtil;
 
 /**
  * A simple load balancer that listens for incoming connections and forwards
@@ -64,24 +65,15 @@ public class LoadBalancer {
 					final Socket client = serverSocket.accept();
 					final Proxy handler = proxyFactory.createProxy(client);
 					/*
-					 * This currently creates a new thread per connection. In a production system, a thread
-					 * pool would be more appropriate.
+					 * This currently creates a new thread per connection. In a production system, a
+					 * thread pool would be more appropriate.
 					 */
 					new Thread(handler).start();
 				}
 			} catch (IOException e) {
 				System.out.println("IO Error: " + e.getMessage());
 			} finally {
-				synchronized (serverSocket) {
-					if (serverSocket != null && !serverSocket.isClosed()) {
-						try {
-							serverSocket.close();
-						} catch (IOException e) {
-							System.out.println("Error closing server socket: " + e.getMessage());
-						}
-					}
-				}
-
+				NetUtil.close(serverSocket);
 				running = false;
 			}
 		}
